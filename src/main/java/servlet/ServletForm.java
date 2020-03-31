@@ -21,8 +21,6 @@ public class ServletForm extends HttpServlet {
     private int counter = 0;
 
     private Gson gson;
-    private BufferedReader in;
-    private PrintWriter outSocket;
 
     public ServletForm() { }
 
@@ -30,8 +28,8 @@ public class ServletForm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Socket socket = new Socket("localhost", 8113);
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        outSocket = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+        var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        var outSocket = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
         gson = new Gson();
 
         outSocket.println("GET");
@@ -80,8 +78,7 @@ public class ServletForm extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Socket socket = new Socket("localhost", 8113);
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        outSocket = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+        var outSocket = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
         gson = new Gson();
 
         String ime = req.getParameter("ime");
